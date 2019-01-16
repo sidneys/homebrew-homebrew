@@ -20,9 +20,8 @@ class Qjackctldbus < Formula
   needs :cxx11
 
   def install
+    system "sh", "./autogen.sh" if build.head?
     ENV.cxx11
-    system "./autogen.sh"
-
     system "./configure", "--disable-debug",
                           "--disable-portaudio",
                           "--disable-xunique",
@@ -30,7 +29,6 @@ class Qjackctldbus < Formula
                           "--with-jack=#{Formula["jack"].opt_prefix}",
                           "--with-qt5=#{Formula["qt"].opt_prefix}",
                           "--with-qt=#{Formula["qt"].opt_prefix}"
-
     system "make", "install"
     prefix.install bin/"qjackctl.app"
     bin.install_symlink prefix/"qjackctl.app/Contents/MacOS/qjackctl"
