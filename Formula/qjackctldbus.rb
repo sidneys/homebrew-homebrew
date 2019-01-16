@@ -15,6 +15,7 @@ class Qjackctldbus < Formula
   depends_on "pkg-config" => :build
   depends_on "jack"
   depends_on "qt"
+  depends_on "dbus"
 
   needs :cxx11
 
@@ -27,7 +28,8 @@ class Qjackctldbus < Formula
                           "--disable-xunique",
                           "--prefix=#{prefix}",
                           "--with-jack=#{Formula["jack"].opt_prefix}",
-                          "--with-qt5=#{Formula["qt"].opt_prefix}"
+                          "--with-qt5=#{Formula["qt"].opt_prefix}",
+                          "--with-qt=#{Formula["qt"].opt_prefix}"
 
     system "make", "install"
     prefix.install bin/"qjackctl.app"
