@@ -12,16 +12,22 @@ class Qjackctldbus < Formula
     sha256 "8c0022b1933f24a53f54ca478a51231951efb00bfbe7f54f68645b5559a551e1" => :el_capitan
   end
 
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
   depends_on "pkg-config" => :build
+
+  depends_on "dbus"
   depends_on "jack"
   depends_on "qt"
-  depends_on "dbus"
 
   needs :cxx11
 
   def install
-    system "sh", "./autogen.sh" if build.head?
     ENV.cxx11
+
+    system "./autogen.sh" if build.head?
+
     system "./configure", "--disable-debug",
                           "--disable-portaudio",
                           "--disable-xunique",
@@ -29,7 +35,9 @@ class Qjackctldbus < Formula
                           "--with-jack=#{Formula["jack"].opt_prefix}",
                           "--with-qt5=#{Formula["qt"].opt_prefix}",
                           "--with-qt=#{Formula["qt"].opt_prefix}"
+
     system "make", "install"
+
     prefix.install bin/"qjackctl.app"
     bin.install_symlink prefix/"qjackctl.app/Contents/MacOS/qjackctl"
   end
