@@ -24,8 +24,6 @@ class Qjackctldbus < Formula
   needs :cxx11
 
   def install
-    ENV.cxx11
-
     system "./autogen.sh" if build.head?
 
     system "./configure", "--disable-debug",
