@@ -109,6 +109,12 @@ class Ffmpeg < Formula
       --enable-lzma
     ]
 
+    # NVIDIA Hardware Acceleration
+    args << "--enable-nvenc"
+    # args << "--enable-cuda"
+    # args << "--enable-cuvid"
+    # args << "--enable-libnpp"
+
     args << "--enable-chromaprint" if build.with? "chromaprint"
     args << "--enable-frei0r" if build.with? "frei0r"
     args << "--enable-libaom" if build.with? "aom"
