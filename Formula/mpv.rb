@@ -19,7 +19,7 @@ class Mpv < Formula
   depends_on "pkg-config" => :build
   depends_on "python" => :build
 
-  depends_on "ffmpeg"
+  depends_on "sidneys/homebrew/ffmpeg"
   depends_on "jpeg"
   depends_on "libass"
   depends_on "little-cms2"
