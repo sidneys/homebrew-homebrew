@@ -1,16 +1,15 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-4.1.tar.xz"
-  sha256 "a38ec4d026efb58506a99ad5cd23d5a9793b4bf415f2c4c2e9c1bb444acd1994"
-  revision 1
+  url "https://ffmpeg.org/releases/ffmpeg-4.1.1.tar.xz"
+  sha256 "373749824dfd334d84e55dff406729edfd1606575ee44dd485d97d45ea4d2d86"
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
-    sha256 "b5768a085fcbd0515e0be2b08896780b060ade54e4f2472dfa5ef234b180c7f6" => :mojave
-    sha256 "7259051adf56ca05922881b1189863f1f2c6ccce3c61a59b1d8f1336a598c75d" => :high_sierra
-    sha256 "2e48a23ff807683a78b1792101e39a39cf6ace0e525afefe7109beb421c19034" => :sierra
-  end
+    sha256 "468153bac4b90b445fa5c6adfb70ec3213ebc0f63c7a97a6b2a1649d9c32a786" => :mojave
+    sha256 "152657e2793e9105dacf8badf787f826734b6407741b1e764d91502837c84647" => :high_sierra
+    sha256 "c495601c6e1c14b00d025218a9228706723b3f13f371ec98a7a00eb72066706f" => :sierra
+end
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
