@@ -58,6 +58,7 @@ class Mpv < Formula
       --docdir=#{doc}
     ]
     args << "--enable-libarchive" if build.with? "libarchive"
+    args << "--enable-uchardet" if build.with? "uchardet"
     args << "--enable-libbluray" if build.with? "libbluray"
     args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-dvdread" if build.with? "libdvdread"
