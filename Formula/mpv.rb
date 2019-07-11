@@ -52,6 +52,7 @@ class Mpv < Formula
       --enable-javascript
       --enable-libmpv-shared
       --enable-lua
+      --enable-swift
       --confdir=#{etc}/mpv
       --datadir=#{pkgshare}
       --mandir=#{man}
