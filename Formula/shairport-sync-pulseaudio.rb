@@ -21,20 +21,21 @@ class ShairportSyncPulseaudio < Formula
   def install
     system "autoreconf", "-fvi"
     args = %W[
-      --with-os=darwin
-      --with-ssl=openssl
-      --with-dns_sd
       --with-ao
-      --with-pa
-      --with-convolution
       --with-apple-alac
+      --with-convolution
+      --with-dns_sd
+      --with-dummy
       --with-libdaemon
-      --with-stdout
+      --with-metadata
+      --with-os=darwin
+      --with-pa
       --with-pipe
       --with-soxr
-      --with-metadata
+      --with-ssl=openssl
+      --with-stdout
       --with-piddir=#{var}/run
-      --sysconfdir=#{home}/Library/Application Support/#{name}
+      --sysconfdir=#{etc}/#{name}
       --prefix=#{prefix}
     ]
     system "./configure", *args
@@ -74,9 +75,9 @@ class ShairportSyncPulseaudio < Formula
         <string>#{bin}/shairport-sync</string>
       </array>
       <key>StandardErrorPath</key>
-      <string>#{home}/Library/Logs/#{name}.log</string>
+      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
       <key>StandardOutPath</key>
-      <string>#{home}/Library/Logs/#{name}.log</string>
+      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
     </dict>
     </plist>
   EOS

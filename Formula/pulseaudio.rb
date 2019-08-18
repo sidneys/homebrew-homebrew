@@ -79,11 +79,12 @@ class Pulseaudio < Formula
         <string>#{bin}/pulseaudio</string>
         <string>--exit-idle-time=9999999</string>
         <string>--resample-method=soxr-hq</string>
+        <string>--verbose</string>
       </array>
       <key>StandardErrorPath</key>
-      <string>#{home}/Library/Logs/#{name}.log</string>
+      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
       <key>StandardOutPath</key>
-      <string>#{home}/Library/Logs/#{name}.log</string>
+      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
     </dict>
     </plist>
   EOS
