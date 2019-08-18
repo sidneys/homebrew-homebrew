@@ -1,13 +1,12 @@
 class Libalac < Formula
-  desc "Static & Dynamic Library for the Apple Lossless Audio Codec (ALAC)"
+  desc "Apple Lossless Audio Codec (ALAC) Library"
   homepage "https://macosforge.github.io/alac/"
-  url "https://github.com/TimothyGu/alac/archive/v0.0r4+tg1.tar.gz"
-  version "1.0.0"
-  sha256 "97ea9376145d38d898f8d5f969d3c7a7a36aa8bcb0e93378c81fbf8d77fb913d"
-  head "https://github.com/TimothyGu/alac.git"
+  url "https://github.com/sidneys/libalac/archive/v1.0.1.tar.gz"
+  sha256 "e112299d519e9c3a3dbffd486c342c422d93e239c44a42410218a91d4f28753b"
+  head "https://github.com/sidneys/libalac.git"
 
-  depends_on "automake" => :build
   depends_on "autoconf" => :build
+  depends_on "automake" => :build
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
 
