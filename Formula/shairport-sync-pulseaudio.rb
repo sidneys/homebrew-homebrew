@@ -58,18 +58,7 @@ class ShairportSyncPulseaudio < Formula
       <key>RunAtLoad</key>
       <true/>
       <key>KeepAlive</key>
-      <dict>
-        <key>OtherJobActive</key>
-        <dict>
-          <key>homebrew.mxcl.pulseaudio</key>
-          <true/>
-        </dict>
-        <key>OtherJobEnabled</key>
-        <dict>
-          <key>homebrew.mxcl.pulseaudio</key>
-          <true/>
-        </dict>
-      </dict>
+      <true/>
       <key>ProgramArguments</key>
       <array>
         <string>#{bin}/shairport-sync</string>
