@@ -14,12 +14,13 @@ class Libalac < Formula
     cd "codec" do
       system "make"
       (include/"alac").mkpath
-      include.install "aglib.h" => "alac/aglib.h"
       include.install "ALACAudioTypes.h" => "alac/ALACAudioTypes.h"
+      include.install "ALACBitUtilities.h" => "alac/ALACBitUtilities.h"
       include.install "ALACDecoder.h" => "alac/ALACDecoder.h"
       include.install "ALACEncoder.h" => "alac/ALACEncoder.h"
-      include.install "dplib.h" => "alac/dplib.h"
       include.install "EndianPortable.h" => "alac/EndianPortable.h"
+      include.install "aglib.h" => "alac/aglib.h"
+      include.install "dplib.h" => "alac/dplib.h"
       include.install "matrixlib.h" => "alac/matrixlib.h"
       lib.install "libalac.a"
     end
