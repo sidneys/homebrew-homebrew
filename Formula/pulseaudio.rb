@@ -1,8 +1,8 @@
 class Pulseaudio < Formula
   desc "Sound system for POSIX OSes"
   homepage "https://wiki.freedesktop.org/www/Software/PulseAudio/"
-  url "https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.99.2.tar.xz"
-  sha256 "8efa1e56501c85442b1f499ef5be14347799b6519e8bbcb43e417fca58abf02b"
+  url "https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-13.0.tar.xz"
+  sha256 "961b23ca1acfd28f2bc87414c27bb40e12436efcf2158d29721b1e89f3f28057"
 
   head do
     url "https://anongit.freedesktop.org/git/pulseaudio/pulseaudio.git"
@@ -52,17 +52,15 @@ class Pulseaudio < Formula
     <dict>
       <key>Label</key>
       <string>#{plist_name}</string>
+      <key>ProgramArguments</key>
+      <array>
+        <string>#{opt_bin}/pulseaudio</string>
+        <string>--verbose</string>
+      </array>
       <key>RunAtLoad</key>
       <true/>
       <key>KeepAlive</key>
       <true/>
-      <key>ProgramArguments</key>
-      <array>
-        <string>#{bin}/pulseaudio</string>
-        <string>--exit-idle-time=9999999</string>
-        <string>--resample-method=soxr-hq</string>
-        <string>--verbose</string>
-      </array>
       <key>StandardErrorPath</key>
       <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
       <key>StandardOutPath</key>
