@@ -1,4 +1,4 @@
-class ShairportSyncPulseaudio < Formula
+class ShairportSync < Formula
   desc "AirTunes emulator that adds multi-room capability"
   homepage "https://github.com/mikebrady/shairport-sync"
   url "https://github.com/mikebrady/shairport-sync/archive/3.3.2.tar.gz"
@@ -12,7 +12,7 @@ class ShairportSyncPulseaudio < Formula
   depends_on "libconfig"
   depends_on "libdaemon"
   depends_on "libsoxr"
-  depends_on "openssl"
+  depends_on "openssl@1.1"
   depends_on "popt"
   depends_on "sidneys/homebrew/libalac"
   depends_on "sidneys/homebrew/pulseaudio"
@@ -33,7 +33,7 @@ class ShairportSyncPulseaudio < Formula
       --with-ssl=openssl
       --with-stdout
       --with-piddir=#{var}/run
-      --sysconfdir=#{etc}/#{name}
+      --sysconfdir=#{etc}/shairport-sync
       --prefix=#{prefix}
     ]
     system "./configure", *args
