@@ -1,9 +1,9 @@
 class Libalac < Formula
   desc "Apple Lossless Audio Codec (ALAC) Library"
-  homepage "https://github.com/mikebrady/alac"
-  url "https://github.com/mikebrady/alac/archive/0.0.7.tar.gz"
-  sha256 "5a2b059869f0d0404aa29cbde44a533ae337979c11234041ec5b5318f790458e"
-  head "https://github.com/mikebrady/alac.git"
+  homepage "https://macosforge.github.io/alac/"
+  url "https://github.com/macosforge/alac/archive/c38887c5c5e64a4b31108733bd79ca9b2496d987.tar.gz"
+  sha256 "98635ece42fb1c3fceb75eaa4b5164d866e09f0195b3e7ec4085f1123c5e272f"
+  head "https://github.com/macosforge/alac.git"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -11,12 +11,33 @@ class Libalac < Formula
   depends_on "pkg-config" => :build
 
   def install
-    system "autoreconf", "-fiv"
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
-    system "make", "install"
+    cd "codec" do
+      system "make"
+      (include/"alac").mkpath
+      include.install "aglib.h" => "alac/aglib.h"
+      include.install "ALACAudioTypes.h" => "alac/ALACAudioTypes.h"
+      include.install "ALACDecoder.h" => "alac/ALACDecoder.h"
+      include.install "ALACEncoder.h" => "alac/ALACEncoder.h"
+      include.install "dplib.h" => "alac/dplib.h"
+      include.install "EndianPortable.h" => "alac/EndianPortable.h"
+      include.install "matrixlib.h" => "alac/matrixlib.h"
+      lib.install "libalac.a"
+    end
+    (lib+"pkgconfig/alac.pc").write pc_file
+  end
+
+  def pc_file; <<~EOS
+    prefix=#{opt_prefix}
+    exec_prefix=${prefix}
+    libdir=${exec_prefix}/lib
+    includedir=${prefix}/include
+
+    Name: Apple Lossless Audio Codec
+    Description: ALAC library
+    Version: #{version}
+    Libs: -L${libdir} -lalac
+    Cflags: -I${includedir}
+  EOS
   end
 
   test do
