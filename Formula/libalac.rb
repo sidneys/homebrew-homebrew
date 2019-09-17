@@ -1,9 +1,9 @@
 class Libalac < Formula
   desc "Apple Lossless Audio Codec (ALAC) Library"
-  homepage "https://macosforge.github.io/alac/"
-  url "https://github.com/sidneys/libalac/archive/v1.0.1.tar.gz"
-  sha256 "e112299d519e9c3a3dbffd486c342c422d93e239c44a42410218a91d4f28753b"
-  head "https://github.com/sidneys/libalac.git"
+  homepage "https://github.com/mikebrady/alac"
+  url "https://github.com/mikebrady/alac/archive/0.0.7.tar.gz"
+  sha256 "5a2b059869f0d0404aa29cbde44a533ae337979c11234041ec5b5318f790458e"
+  head "https://github.com/mikebrady/alac.git"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -12,7 +12,10 @@ class Libalac < Formula
 
   def install
     system "autoreconf", "-fiv"
-    system "./configure", "--disable-dependency-tracking", "--disable-silent-rules", "--prefix=#{prefix}"
+    system "./configure", "--disable-debug",
+                          "--disable-dependency-tracking",
+                          "--disable-silent-rules",
+                          "--prefix=#{prefix}"
     system "make", "install"
   end
 
