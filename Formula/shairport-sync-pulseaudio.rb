@@ -53,14 +53,14 @@ class ShairportSyncPulseaudio < Formula
     <dict>
       <key>Label</key>
       <string>#{plist_name}</string>
+      <key>ProgramArguments</key>
+      <array>
+        <string>#{opt_bin}/shairport-sync</string>
+      </array>
       <key>RunAtLoad</key>
       <true/>
       <key>KeepAlive</key>
       <true/>
-      <key>ProgramArguments</key>
-      <array>
-        <string>#{bin}/shairport-sync</string>
-      </array>
       <key>StandardErrorPath</key>
       <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
       <key>StandardOutPath</key>
