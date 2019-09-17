@@ -10,7 +10,6 @@ class ShairportSync < Formula
   depends_on "pkg-config" => :build
   depends_on "libao"
   depends_on "libconfig"
-  depends_on "libdaemon"
   depends_on "libsoxr"
   depends_on "openssl@1.1"
   depends_on "popt"
@@ -24,7 +23,6 @@ class ShairportSync < Formula
       --with-apple-alac
       --with-dns_sd
       --with-dummy
-      --with-libdaemon
       --with-metadata
       --with-os=darwin
       --with-pa
