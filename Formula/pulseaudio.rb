@@ -4,6 +4,12 @@ class Pulseaudio < Formula
   url "https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-13.0.tar.xz"
   sha256 "961b23ca1acfd28f2bc87414c27bb40e12436efcf2158d29721b1e89f3f28057"
 
+  bottle do
+    sha256 "819cb5b8dd86715db2285f647b1742611dd2a802447aea637f05adae33a6056b" => :mojave
+    sha256 "a5c5442b2118b9e3e3b2cbd8a8a700a121e9264b11c7096a3b3c42ce780a7a0b" => :high_sierra
+    sha256 "bc42617a58074e5631eae20559f6a043ee87c8dcfd9944ac45b47467a3cdca66" => :sierra
+  end
+
   head do
     url "https://anongit.freedesktop.org/git/pulseaudio/pulseaudio.git"
 
@@ -18,7 +24,7 @@ class Pulseaudio < Formula
   depends_on "libsndfile"
   depends_on "libsoxr"
   depends_on "libtool"
-  depends_on "openssl"
+  depends_on "openssl@1.1"
   depends_on "speexdsp"
 
   def install
