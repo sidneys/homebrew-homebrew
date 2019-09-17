@@ -11,7 +11,6 @@ class ShairportSyncPulseaudio < Formula
   depends_on "libao"
   depends_on "libconfig"
   depends_on "libdaemon"
-  depends_on "libsndfile"
   depends_on "libsoxr"
   depends_on "openssl"
   depends_on "popt"
@@ -23,7 +22,6 @@ class ShairportSyncPulseaudio < Formula
     args = %W[
       --with-ao
       --with-apple-alac
-      --with-convolution
       --with-dns_sd
       --with-dummy
       --with-libdaemon
