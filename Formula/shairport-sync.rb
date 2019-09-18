@@ -53,6 +53,7 @@ class ShairportSync < Formula
       <key>ProgramArguments</key>
       <array>
         <string>#{opt_bin}/shairport-sync</string>
+        <string>--use-stderr</string>
       </array>
       <key>RunAtLoad</key>
       <true/>
