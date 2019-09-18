@@ -22,7 +22,6 @@ class ShairportSync < Formula
       --with-ao
       --with-apple-alac
       --with-dns_sd
-      --with-dummy
       --with-metadata
       --with-os=darwin
       --with-pa
@@ -66,6 +65,15 @@ class ShairportSync < Formula
     </dict>
     </plist>
   EOS
+  end
+
+  def caveats
+    <<~EOS
+      Audio synchronisation (recommended) requires the `pulseaudio` audio backend,
+      which has to be running while using `shairport-sync`.
+
+      To launch it in the background, start it as a service: `brew services start pulseaudio`
+    EOS
   end
 
   test do
