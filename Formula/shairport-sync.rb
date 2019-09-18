@@ -59,9 +59,9 @@ class ShairportSync < Formula
       <key>KeepAlive</key>
       <true/>
       <key>StandardErrorPath</key>
-      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
+      <string>#{var}/log/#{name}.log</string>
       <key>StandardOutPath</key>
-      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
+      <string>#{var}/log/#{name}.log</string>
     </dict>
     </plist>
   EOS
@@ -69,10 +69,11 @@ class ShairportSync < Formula
 
   def caveats
     <<~EOS
-      Audio synchronisation (recommended) requires the `pulseaudio` audio backend,
-      which has to be running while using `shairport-sync`.
+      `shairport-sync`s AirPlay audio synchronisation feature requires the `pulseaudio` sound system
+      application to be active and running during usage.
 
-      To launch it in the background, start it as a service: `brew services start pulseaudio`
+      `pulseaudio` has already been installed as a Homebrew dependency. To run it unobstrusively in
+      the background (recommended), start it as a service: `brew services start pulseaudio`
     EOS
   end
 

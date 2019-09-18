@@ -61,6 +61,7 @@ class Pulseaudio < Formula
       <key>ProgramArguments</key>
       <array>
         <string>#{opt_bin}/pulseaudio</string>
+        <string>--exit-idle-time=-1</string>
         <string>--verbose</string>
       </array>
       <key>RunAtLoad</key>
@@ -68,9 +69,9 @@ class Pulseaudio < Formula
       <key>KeepAlive</key>
       <true/>
       <key>StandardErrorPath</key>
-      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
+      <string>#{var}/log/#{name}.log</string>
       <key>StandardOutPath</key>
-      <string>/Users/#{ENV["LOGNAME"]}/Library/Logs/#{name}.log</string>
+      <string>#{var}/log/#{name}.log</string>
     </dict>
     </plist>
   EOS
