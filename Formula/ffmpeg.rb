@@ -1,15 +1,14 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-4.1.4.tar.xz"
-  sha256 "f1f049a82fcfbf156564e73a3935d7e750891fab2abf302e735104fd4050a7e1"
-  revision 1
+  url "https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.xz"
+  sha256 "cec7c87e9b60d174509e263ac4011b522385fd0775292e1670ecc1180c9bb6d4"
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
-    sha256 "6e0d85d0c85af45ba88e402478812b4865c611910bbc10e6b4a10f4b577710d8" => :mojave
-    sha256 "5c9c93c5957da218683642b3aca8e22e3c89cdca7ffc41807ef20cddf7ac3b40" => :high_sierra
-    sha256 "c06ec4da88e2638775c14616441e8e3e5f5e5c057886a5a2a58f38e5808b35a0" => :sierra
+    sha256 "0d380384008e32fb185e62a5a27e2b1b685984c374d350e1f2f9d80526d227b3" => :mojave
+    sha256 "8fc9ab04aa9044e788fcbb92cc5bcc97387e51170f66d595ae2dc05bb247a968" => :high_sierra
+    sha256 "8d175180edf22fbf8ac525a094bd0f130122558ded1c85f8153991ce13e720c4" => :sierra
   end
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
