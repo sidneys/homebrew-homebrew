@@ -12,7 +12,22 @@ class Libalac < Formula
 
   def install
     cd "codec" do
-      system "make"
+      ENV["CFLAGS"] = "-g -O3 -c"
+      ENV["CPPFLAGS"] = "-I."
+      ENV["LDFLAGS"] = "-no-undefined -Wall"
+      ENV["CC"] = "g++"
+
+      # Build & install static Library
+      system "make", "CFLAGS=#{ENV.cflags}", "LDFLAGS=#{ENV.ldflags}"
+      lib.install "libalac.a"
+
+      # Build & install shared Library
+      #system ENV.cc, "-dynamiclib", "-Wall", "-o", "libalac.dylib", "-undefined", "dynamic_lookup", *Dir["*.o"]
+
+      system ENV.cxx, "-dynamiclib", "-o", "libalac.dylib", *Dir["*.o"], "-lm", "-fprofile-arcs", "-O2", "-Wl,-single_module"
+      lib.install "libalac.dylib"
+
+      # Install Library Headers
       (include/"alac").mkpath
       include.install "ALACAudioTypes.h" => "alac/ALACAudioTypes.h"
       include.install "ALACBitUtilities.h" => "alac/ALACBitUtilities.h"
@@ -22,7 +37,6 @@ class Libalac < Formula
       include.install "aglib.h" => "alac/aglib.h"
       include.install "dplib.h" => "alac/dplib.h"
       include.install "matrixlib.h" => "alac/matrixlib.h"
-      lib.install "libalac.a"
     end
     (lib+"pkgconfig/alac.pc").write pc_file
   end
