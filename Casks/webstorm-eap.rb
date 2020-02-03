@@ -1,6 +1,6 @@
 cask 'webstorm-eap' do
   version '2020.1,201.4515.27'
-  sha256 '154fec30cfb3bbbdf8110293e8e4b369ebf39c828896c073f02a85ea6a88a2b3'
+  sha256 'ef7a03863b20827d27159a7c42acdb4efed698e2880ae0e0f9d4fe062aa0e559'
 
   url "https://download.jetbrains.com/webstorm/WebStorm-#{version.after_comma}.dmg"
   appcast 'https://data.services.jetbrains.com/products/releases?code=WS&latest=true&type=eap'
