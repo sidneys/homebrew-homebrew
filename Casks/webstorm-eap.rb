@@ -1,5 +1,5 @@
 cask 'webstorm-eap' do
-  version '2019.1,191.5532.37'
+  version '2020.1,201.4515.27'
   sha256 '154fec30cfb3bbbdf8110293e8e4b369ebf39c828896c073f02a85ea6a88a2b3'
 
   url "https://download.jetbrains.com/webstorm/WebStorm-#{version.after_comma}.dmg"
