@@ -1,15 +1,15 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/v0.29.1.tar.gz"
-  sha256 "f9f9d461d1990f9728660b4ccb0e8cb5dce29ccaa6af567bec481b79291ca623"
+  url "https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz"
+  sha256 "9163f64832226d22e24bbc4874ebd6ac02372cd717bef15c28a0aa858c5fe592"
   revision 3
   head "https://github.com/mpv-player/mpv.git"
 
   bottle do
-    sha256 "a91d2f0d616a23d37308c5a0c1f4902b07eec44f2eb6619c285044d3e4bb0124" => :mojave
-    sha256 "27b27bc1bfe887f696b5c625dc5ac5dab5806a02cfa6104be1214e1eb6d3ec53" => :high_sierra
-    sha256 "61471c7206414f25b4c23da82b239197000d4d94104fdd51e0893e07d44b8737" => :sierra
+    sha256 "dd0fe84dea1268524e18d210595e31b295906e334ae8114124b94a94d130de60" => :catalina
+    sha256 "22c3aa2fb8ec77b5125c836badf0ad7889b512280f54f310c5a6ab8e77099fa6" => :mojave
+    sha256 "0477b20f9a166d746d84c2a7d0b191159c6825512fe66c38ddf9ca6c43403d97" => :high_sierra
   end
 
   option "with-bundle", "Enable compilation of the .app bundle."
