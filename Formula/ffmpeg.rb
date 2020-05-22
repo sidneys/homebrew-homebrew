@@ -1,15 +1,9 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.xz"
-  sha256 "cb754255ab0ee2ea5f66f8850e1bd6ad5cac1cd855d0a2f4990fb8c668b0d29c"
+  url "https://ffmpeg.org/releases/ffmpeg-4.2.3.tar.xz"
+  sha256 "9df6c90aed1337634c1fb026fb01c154c29c82a64ea71291ff2da9aacb9aad31"
   head "https://github.com/FFmpeg/FFmpeg.git"
-
-  bottle do
-    sha256 "34e8b4424611acc2f90e27b4e1318fc3972b036231a171faa4e017a9b98b9d1b" => :catalina
-    sha256 "80582f6eac8470182df842a072e074de3624ec3f5c091aa9151c178745a06011" => :mojave
-    sha256 "afb1c2a2c38fa4d39dbd178cf5258bc3b81e805196196d24ab3676f134914cab" => :high_sierra
-  end
 
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-libass", "Enable ASS/SSA subtitle format"
@@ -48,6 +42,7 @@ class Ffmpeg < Formula
   depends_on "x265"
   depends_on "xvid"
   depends_on "xz"
+  depends_on "dav1d"
 
   depends_on "aom" => :optional
   depends_on "fdk-aac" => :optional
@@ -107,6 +102,7 @@ class Ffmpeg < Formula
 
     args << "--enable-frei0r" if build.with? "frei0r"
     args << "--enable-libaom" if build.with? "aom"
+    args << "--enable-libdav1d" if build.with? "dav1d"
     args << "--enable-libass" if build.with? "libass"
     args << "--enable-libbluray" if build.with? "libbluray"
     args << "--enable-libbs2b" if build.with? "libbs2b"
