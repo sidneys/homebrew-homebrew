@@ -23,7 +23,7 @@ class Mpv < Formula
   depends_on "jpeg"
   depends_on "libass"
   depends_on "little-cms2"
-  depends_on "lua@5.1"
+  depends_on "sidneys/homebrew/lua@5.2"
   depends_on "mujs"
   depends_on "youtube-dl"
 
@@ -52,7 +52,7 @@ class Mpv < Formula
       --enable-javascript
       --enable-libmpv-shared
       --enable-lua
-      --enable-swift
+      --disable-swift
       --confdir=#{etc}/mpv
       --datadir=#{pkgshare}
       --mandir=#{man}
