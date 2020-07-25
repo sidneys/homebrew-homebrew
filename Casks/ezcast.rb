@@ -1,6 +1,6 @@
 cask 'ezcast' do
-  version '2.8.0'
-  sha256 'a6de63bbec9d8f8541f6f593f59909f31fa6a32627bb31dcf0370da748b05800'
+  version '2.11.0'
+  sha256 '3a0f084636d0efa923966743261c0e05483694bcae221e9c71cd2b3cc1cf6b60'
 
   url "https://www.ezcast.com/upgrade/ezcast/EZCast-And-Driver-Installer-#{version}.pkg"
   appcast 'https://www.ezcast.com/upgrade/ezcast/maccast.xml'
