@@ -1,4 +1,4 @@
-# Last check with upstream: 214fbf099806e2c79ec0f214e12b5becca988011
+# Last check with upstream: fe7e0b5ba38143a0466313d29b435afa255af627
 # https://github.com/Homebrew/homebrew-core/blob/master/Formula/mpv.rb
 
 class MpvIina < Formula
@@ -12,7 +12,8 @@ class MpvIina < Formula
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python" => :build
+  depends_on "python@3.8" => :build
+  depends_on xcode: :build
 
   depends_on "iina/mpv-iina/ffmpeg-iina"
   depends_on "jpeg"
@@ -33,6 +34,9 @@ class MpvIina < Formula
     # that's good enough for building the manpage.
     ENV["LC_ALL"] = "C"
 
+    # libarchive is keg-only
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
+
     args = %W[
       --prefix=#{prefix}
       --enable-javascript
@@ -48,11 +52,12 @@ class MpvIina < Formula
       --datadir=#{pkgshare}
       --mandir=#{man}
       --docdir=#{doc}
+      --lua=52deb
     ]
 
-    system "python3", "bootstrap.py"
-    system "python3", "waf", "configure", *args
-    system "python3", "waf", "install"
+    system Formula["python@3.8"].opt_bin/"python3", "bootstrap.py"
+    system Formula["python@3.8"].opt_bin/"python3", "waf", "configure", *args
+    system Formula["python@3.8"].opt_bin/"python3", "waf", "install"
   end
 
   test do
