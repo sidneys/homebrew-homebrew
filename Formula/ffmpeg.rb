@@ -35,7 +35,6 @@ class Ffmpeg < Formula
   option "with-openh264", "Enable OpenH264 library"
   option "with-openssl", "Enable SSL support"
   option "with-two-lame", "Enable two-lame library"
-  option "with-wavpack", "Enable wavpack library"
   option "with-zeromq", "Enable using libzeromq to receive cmds sent through a libzeromq client"
   option "with-zimg", "Enable z.lib zimg library"
 
@@ -85,7 +84,6 @@ class Ffmpeg < Formula
   depends_on "openh264" => :optional
   depends_on "openssl" => :optional
   depends_on "two-lame" => :optional
-  depends_on "wavpack" => :optional
   depends_on "zeromq" => :optional
   depends_on "zimg" => :optional
 
@@ -164,7 +162,6 @@ class Ffmpeg < Formula
     args << "--enable-libopenh264" if build.with? "openh264"
     args << "--enable-openssl" if build.with? "openssl"
     args << "--enable-libtwolame" if build.with? "two-lame"
-    args << "--enable-libwavpack" if build.with? "wavpack"
     args << "--enable-libzmq" if build.with? "zeromq"
     args << "--enable-libzimg" if build.with? "zimg"
 
