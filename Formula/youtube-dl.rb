@@ -3,22 +3,10 @@ class YoutubeDl < Formula
   homepage "https://youtube-dl.org/"
   url "https://gitlab.com/dstftw/youtube-dl/uploads/99d745f22ca3c2a8e9a23def5446289a/youtube-dl-2020.11.12.tar.gz"
   sha256 "aeb00b2079c4711de7eea2a91f6923ebade84c5e985b0caeb47d572395d42831"
+  head "https://gitlab.com/sidneys/youtube-dl.git", branch: "deploy/testing"
   license "Unlicense"
 
-  head do
-    url "https://gitlab.com/sidneys/youtube-dl.git"
-    depends_on "pandoc" => :build
-  end
-
   bottle :unneeded
-
-  option "with-testing", "deploy/testing branch"
-
-  if build.with? "testing"
-    head do
-      url "https://gitlab.com/sidneys/youtube-dl.git", branch: "deploy/testing"
-    end
-  end
 
   def install
     system "make", "PREFIX=#{prefix}" if build.head?

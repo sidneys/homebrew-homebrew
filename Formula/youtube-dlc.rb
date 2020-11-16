@@ -1,12 +1,10 @@
 class YoutubeDlc < Formula
   desc "Fork of youtube-dl with the intention of getting features tested by the community merged in the tool faster"
   homepage "https://github.com/blackjack4494/yt-dlc"
+  head "https://github.com/blackjack4494/yt-dlc.git"
   license "Unlicense"
 
-  head do
-    url "https://github.com/blackjack4494/yt-dlc.git"
-    depends_on "pandoc" => :build
-  end
+  depends_on "pandoc" => :build
 
   bottle :unneeded
 
