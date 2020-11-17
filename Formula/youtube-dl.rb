@@ -6,6 +6,8 @@ class YoutubeDl < Formula
   head "https://github.com/sidneys/youtube-dl-1.git", branch: "deploy/testing"
   license "Unlicense"
 
+  depends_on "pandoc"
+
   bottle :unneeded
 
   def install
