@@ -1,25 +1,20 @@
-cask 'flutter-dev' do
-  version '1.21.0-1.0.pre'
-  sha256 'fc9592842d859d1a6619d5302c97eb56bf587f7bcb984283289954933ae3d23d'
+cask "flutter-dev" do
+  version "1.25.0-4.0.pre"
+  sha256 "0c117e343a40183a1da45f7496cea16fbdd26ff5efeb4272037387a4db95bafe"
 
   url "https://storage.googleapis.com/flutter_infra/releases/dev/macos/flutter_macos_#{version}-dev.zip"
-  name 'flutter'
-  homepage 'https://flutter.dev'
+  name "Flutter SDK"
+  desc "UI toolkit for building applications for mobile, web and desktop"
+  homepage "https://flutter.dev/"
 
   conflicts_with cask:    [
                             'flutter',
                             'flutter-beta'
                           ]
 
-  binary 'flutter/bin/flutter', target: 'flutter'
+  auto_updates true
+  depends_on macos: ">= :catalina"
 
-  postflight do
-    # Upgrade channel to the latest version
-    system_command '/usr/local/bin/flutter',
-                   args: [
-                       'upgrade',
-                       '--force'
-                     ],
-                   sudo: false
-  end
+  binary "flutter/bin/dart"
+  binary "flutter/bin/flutter"
 end
