@@ -1,15 +1,15 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz"
-  sha256 "9163f64832226d22e24bbc4874ebd6ac02372cd717bef15c28a0aa858c5fe592"
-  revision 3
+  url "https://github.com/mpv-player/mpv/archive/v0.33.0.tar.gz"
+  sha256 "f1b9baf5dc2eeaf376597c28a6281facf6ed98ff3d567e3955c95bf2459520b4"
+  license :cannot_represent
   head "https://github.com/mpv-player/mpv.git"
 
   bottle do
-    sha256 "dd0fe84dea1268524e18d210595e31b295906e334ae8114124b94a94d130de60" => :catalina
-    sha256 "22c3aa2fb8ec77b5125c836badf0ad7889b512280f54f310c5a6ab8e77099fa6" => :mojave
-    sha256 "0477b20f9a166d746d84c2a7d0b191159c6825512fe66c38ddf9ca6c43403d97" => :high_sierra
+    sha256 "82651bb364974f9dabe113a52c921888c97dddf33a02b38ae6557c38a6a5a128" => :big_sur
+    sha256 "64bc86054fe67befc54e50318a52ee71b711732b678a62c2609866beb12b7030" => :catalina
+    sha256 "7e1ca3cf5a9557299161f6584f5457c4fc98e9cb5d1001919587e74b675794ca" => :mojave
   end
 
   option "with-bundle", "Enable compilation of the .app bundle."
@@ -17,7 +17,7 @@ class Mpv < Formula
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python" => :build
+  depends_on "python@3.9" => :build
 
   depends_on "sidneys/homebrew/ffmpeg"
   depends_on "jpeg"
@@ -38,7 +38,6 @@ class Mpv < Formula
   depends_on "rubberband" => :optional
   depends_on "uchardet" => :optional
   depends_on "vapoursynth" => :optional
-  depends_on :x11 => :optional
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
