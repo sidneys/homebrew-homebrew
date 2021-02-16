@@ -1,6 +1,6 @@
 cask "flutter-dev" do
-  version "1.26.0-17.2.pre"
-  sha256 "56b8fcaf888efb162ff3e7083fd3d01f13369bf9be326f67c5e17e1e1b84b7a6"
+  version "1.27.0-1.0.pre"
+  sha256 "72d113611665f5f8827e681de709765c558126a649fe71d121a2f1583c350f36"
 
   url "https://storage.googleapis.com/flutter_infra/releases/dev/macos/flutter_macos_#{version}-dev.zip"
   name "Flutter SDK"
