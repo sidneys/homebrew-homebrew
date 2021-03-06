@@ -1,18 +1,24 @@
 cask "flutter-dev" do
-  version "1.27.0-1.0.pre"
-  sha256 "72d113611665f5f8827e681de709765c558126a649fe71d121a2f1583c350f36"
+  version "2.1.0-10.0.pre"
+  sha256 "5b94fa9f1db978aed45baae22ce3b909213077055fbc577c6c0944e67a0eb7c8"
 
-  url "https://storage.googleapis.com/flutter_infra/releases/dev/macos/flutter_macos_#{version}-dev.zip"
+  url "https://storage.googleapis.com/flutter_infra/releases/dev/macos/flutter_macos_#{version}-dev.zip",
+      verified: "storage.googleapis.com/flutter_infra/"
   name "Flutter SDK"
   desc "UI toolkit for building applications for mobile, web and desktop"
   homepage "https://flutter.dev/"
 
-  conflicts_with cask:    [
-                            'flutter',
-                            'flutter-beta'
-                          ]
+  livecheck do
+    strategy :git
+    url "https://github.com/flutter/flutter"
+  end
 
   auto_updates true
+  conflicts_with cask: [
+    "flutter",
+    "flutter-beta",
+  ]
+
   depends_on macos: ">= :catalina"
 
   binary "flutter/bin/dart"
