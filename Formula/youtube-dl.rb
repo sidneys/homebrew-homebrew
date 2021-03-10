@@ -25,7 +25,7 @@ class YoutubeDl < Formula
 
   def install
     if build.head?
-      system "make", "PREFIX=#{prefix}"
+      system "make", "all", "PREFIX=#{prefix}"
       bin.install "youtube-dl"
       man1.install "youtube-dl.1"
       bash_completion.install "youtube-dl.bash-completion"
