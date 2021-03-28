@@ -4,12 +4,14 @@ class Mpv < Formula
   url "https://github.com/mpv-player/mpv/archive/v0.33.0.tar.gz"
   sha256 "f1b9baf5dc2eeaf376597c28a6281facf6ed98ff3d567e3955c95bf2459520b4"
   license :cannot_represent
+  revision 3
   head "https://github.com/mpv-player/mpv.git"
 
   bottle do
-    sha256 "82651bb364974f9dabe113a52c921888c97dddf33a02b38ae6557c38a6a5a128" => :big_sur
-    sha256 "64bc86054fe67befc54e50318a52ee71b711732b678a62c2609866beb12b7030" => :catalina
-    sha256 "7e1ca3cf5a9557299161f6584f5457c4fc98e9cb5d1001919587e74b675794ca" => :mojave
+    sha256 arm64_big_sur: "1679746b14f23e60d01d41c461f4ffec1142f95989059aa13bd136b6b062b694"
+    sha256 big_sur:       "58a1f5371def7e860246dfbff2f065070838bb70a766a5601fc1b275be183170"
+    sha256 catalina:      "f990b241e40cb6c2b1a2cda146e6e51dfd613f450a94b637fcdbeddb2ef2eb77"
+    sha256 mojave:        "40262c2fe5cf5676ae4f18715ba9eaac2ded398a484a447f7732e37201fe1d90"
   end
 
   option "with-bundle", "Enable compilation of the .app bundle."
@@ -23,7 +25,7 @@ class Mpv < Formula
   depends_on "jpeg"
   depends_on "libass"
   depends_on "little-cms2"
-  depends_on "lua@5.1"
+  depends_on "luajit-openresty"
   depends_on "mujs"
   depends_on "youtube-dl"
 
@@ -45,6 +47,11 @@ class Mpv < Formula
     # that's good enough for building the manpage.
     ENV["LC_ALL"] = "C"
 
+    # libarchive is keg-only
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig" if build.with? "libarchive"
+    # luajit-openresty is keg-only
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["luajit-openresty"].opt_lib/"pkgconfig"
+
     args = %W[
       --prefix=#{prefix}
       --enable-html-build
@@ -56,6 +63,8 @@ class Mpv < Formula
       --datadir=#{pkgshare}
       --mandir=#{man}
       --docdir=#{doc}
+      --zshdir=#{zsh_completion}
+      --lua=luajit
     ]
     args << "--enable-libarchive" if build.with? "libarchive"
     args << "--enable-uchardet" if build.with? "uchardet"
@@ -63,17 +72,11 @@ class Mpv < Formula
     args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-dvdread" if build.with? "libdvdread"
     args << "--enable-pulse" if build.with? "pulseaudio"
+    args << "--enable-lgpl" if build.with? "lgpl"
 
-    if build.with? "lgpl"
-      args << "--enable-lgpl"
-    else
-      args << "--enable-zsh-comp"
-      args << "--zshdir=#{zsh_completion}"
-    end
-
-    system "./bootstrap.py"
-    system "python3", "waf", "configure", *args
-    system "python3", "waf", "install"
+    system Formula["python@3.9"].opt_bin/"python3", "bootstrap.py"
+    system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *args
+    system Formula["python@3.9"].opt_bin/"python3", "waf", "install"
 
     if build.with? "bundle"
       system "python3", "TOOLS/osxbundle.py", "build/mpv"
@@ -83,5 +86,6 @@ class Mpv < Formula
 
   test do
     system bin/"mpv", "--ao=null", test_fixtures("test.wav")
+    assert_match "vapoursynth", shell_output(bin/"mpv --vf=help")
   end
 end
