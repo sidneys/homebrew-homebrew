@@ -15,9 +15,9 @@ class Ffmpeg < Formula
   end
 
   bottle do
-    sha256 "c6c0e23c31d58dca7f43c6569370cad265042192a35d1cc531f58c006e250a6c" => :catalina
-    sha256 "e057176e9169390040367e1431dead835ac93025b1a86d7d40fbcc7e15d89b5c" => :mojave
-    sha256 "8bd7f692b12049a7a073c00e3201b2e8460a2f4817bc3b5cc47cb5d12d3bfa91" => :high_sierra
+    sha256 catalina:    "c6c0e23c31d58dca7f43c6569370cad265042192a35d1cc531f58c006e250a6c"
+    sha256 mojave:      "e057176e9169390040367e1431dead835ac93025b1a86d7d40fbcc7e15d89b5c"
+    sha256 high_sierra: "8bd7f692b12049a7a073c00e3201b2e8460a2f4817bc3b5cc47cb5d12d3bfa91"
   end
 
   # FFmpeg Build Options: Switches
