@@ -1,8 +1,8 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.xz"
-  sha256 "ad009240d46e307b4e03a213a0f49c11b650e445b1f8be0dda2a9212b34d2ffb"
+  url "https://ffmpeg.org/releases/ffmpeg-4.4.tar.xz"
+  sha256 "06b10a183ce5371f915c6bb15b7b1fffbe046e8275099c96affc29e17645d909"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   # license "GPL-2.0-or-later"
@@ -15,9 +15,10 @@ class Ffmpeg < Formula
   end
 
   bottle do
-    sha256 catalina:    "c6c0e23c31d58dca7f43c6569370cad265042192a35d1cc531f58c006e250a6c"
-    sha256 mojave:      "e057176e9169390040367e1431dead835ac93025b1a86d7d40fbcc7e15d89b5c"
-    sha256 high_sierra: "8bd7f692b12049a7a073c00e3201b2e8460a2f4817bc3b5cc47cb5d12d3bfa91"
+    sha256 arm64_big_sur: "8d8565f0f26acc643fef02763ec3b0e47720ef4b4c39e0d30af02f0c8c5a10cc"
+    sha256 big_sur:       "d941810f2a37af43ad4c67c6fd7449bd575f11be46f2af7005df9dc0adc044cd"
+    sha256 catalina:      "2b2a1f589f916053fc62388d5112ed5c45e4cb60c45b0dc5d8f51e0899dd10f4"
+    sha256 mojave:        "ddacdae46828589d33732de09d33386380f39455274508a3aa57cf7b4289e1b3"
   end
 
   # FFmpeg Build Options: Switches
@@ -91,13 +92,16 @@ class Ffmpeg < Formula
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
+  on_linux do
+    depends_on "libxv"
+  end
+
   def install
     args = %W[
       --prefix=#{prefix}
       --enable-shared
       --enable-pthreads
       --enable-version3
-      --enable-avresample
       --cc=#{ENV.cc}
       --host-cflags=#{ENV.cflags}
       --host-ldflags=#{ENV.ldflags}
@@ -142,7 +146,7 @@ class Ffmpeg < Formula
       --enable-nonfree
     ]
 
-    if OS.mac?
+    on_macos do
       args << "--enable-opencl"
       args << "--enable-videotoolbox"
       args << "--enable-audiotoolbox"
