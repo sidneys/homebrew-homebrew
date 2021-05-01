@@ -6,10 +6,10 @@ class Qjackctldbus < Formula
   head "https://git.code.sf.net/p/qjackctl/code.git"
 
   bottle do
-    sha256 "e661c47a8bb9be298dabc9d0c656f962b7157c6aa7dcebef18119af8ea07c26b" => :mojave
-    sha256 "e23c9278a737692dffba9f15d4ba96ee3545d5054d4dc40b8f298fa2ac88d6d0" => :high_sierra
-    sha256 "b5561ee222cd865048a52ea95c98f1a06b05d17ed31500a8f7e8407ef8caace2" => :sierra
-    sha256 "8c0022b1933f24a53f54ca478a51231951efb00bfbe7f54f68645b5559a551e1" => :el_capitan
+    sha256 mojave:      "e661c47a8bb9be298dabc9d0c656f962b7157c6aa7dcebef18119af8ea07c26b"
+    sha256 high_sierra: "e23c9278a737692dffba9f15d4ba96ee3545d5054d4dc40b8f298fa2ac88d6d0"
+    sha256 sierra:      "b5561ee222cd865048a52ea95c98f1a06b05d17ed31500a8f7e8407ef8caace2"
+    sha256 el_capitan:  "8c0022b1933f24a53f54ca478a51231951efb00bfbe7f54f68645b5559a551e1"
   end
 
   depends_on "autoconf" => :build
