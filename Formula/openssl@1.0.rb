@@ -6,6 +6,11 @@ class OpensslAT10 < Formula
   sha256 "ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16"
   version_scheme 1
 
+  patch do
+    url "https://gist.githubusercontent.com/felixbuenemann/5f4dcb30ebb3b86e1302e2ec305bac89/raw/b339a33ff072c9747df21e2558c36634dd62c195/openssl-1.0.2u-darwin-arm64.patch"
+    sha256 "4ad22bcfc85171a25f035b6fc47c7140752b9ed7467bb56081c76a0a3ebf1b9f"
+  end
+
   bottle do
   end
 
@@ -37,7 +42,7 @@ class OpensslAT10 < Formula
     # Whilst our env points to opt_bin, by default OpenSSL resolves the symlink.
     ENV["PERL"] = Formula["perl"].opt_bin/"perl" if which("perl") == Formula["perl"].opt_bin/"perl"
 
-    arch_args = %w[darwin64-x86_64-cc enable-ec_nistp_64_gcc_128]
+    arch_args = %W[darwin64-#{Hardware::CPU.arch}-cc enable-ec_nistp_64_gcc_128]
 
     ENV.deparallelize
     system "perl", "./Configure", *(configure_args + arch_args)
