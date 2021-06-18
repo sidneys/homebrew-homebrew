@@ -5,12 +5,11 @@ class Mupen64plus < Formula
   sha256 "9c75b9d826f2d24666175f723a97369b3a6ee159b307f7cc876bbb4facdbba66"
 
   bottle do
-    cellar :any
     rebuild 1
-    sha256 "c88a4d9a47cdcc6b995615d5fd4b061a7046ec72fac75560d79998b7abf60b78" => :mojave
-    sha256 "4dc531259b558fe987eecd74d87afb70284d36ec4e0c3008de751b820f83e64b" => :high_sierra
-    sha256 "28006559bb0cc624432b1a8b0a7dfd08e9a5a3d59d7dbaf5cde64ac29dc747d1" => :sierra
-    sha256 "6d9d9900813b21abc89149ded185d4b74147a85c1a350d54511ee535acde171c" => :el_capitan
+    sha256 cellar: :any, mojave:      "c88a4d9a47cdcc6b995615d5fd4b061a7046ec72fac75560d79998b7abf60b78"
+    sha256 cellar: :any, high_sierra: "4dc531259b558fe987eecd74d87afb70284d36ec4e0c3008de751b820f83e64b"
+    sha256 cellar: :any, sierra:      "28006559bb0cc624432b1a8b0a7dfd08e9a5a3d59d7dbaf5cde64ac29dc747d1"
+    sha256 cellar: :any, el_capitan:  "6d9d9900813b21abc89149ded185d4b74147a85c1a350d54511ee535acde171c"
   end
 
   option "without-osd", "Disables the On Screen Display"
@@ -22,11 +21,11 @@ class Mupen64plus < Formula
   deprecated_option "enable-new-dynarec" => "with-new-dynarec"
 
   depends_on "pkg-config" => :build
-  depends_on "libpng"
-  depends_on "sdl"
   depends_on "boost"
   depends_on "freetype" if build.with? "osd"
+  depends_on "libpng"
   depends_on "libsamplerate" if build.with? "src"
+  depends_on "sdl"
   depends_on "speex" => :optional
 
   resource "rom" do
@@ -36,7 +35,8 @@ class Mupen64plus < Formula
 
   def install
     # Prevent different C++ standard library warning
-    inreplace Dir["source/mupen64plus-**/projects/unix/Makefile"], /(-mmacosx-version-min)=\d+\.\d+/, "\\1=#{MacOS.version}"
+    inreplace Dir["source/mupen64plus-**/projects/unix/Makefile"], /(-mmacosx-version-min)=\d+\.\d+/,
+"\\1=#{MacOS.version}"
 
     # Fix build with Xcode 9 using upstream commit:
     # https://github.com/mupen64plus/mupen64plus-video-glide64mk2/commit/5ac11270
