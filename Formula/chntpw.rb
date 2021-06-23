@@ -8,7 +8,12 @@ class Chntpw < Formula
   depends_on "sidneys/homebrew/openssl@1.0"
 
   def install
-    system "make"
+    if Hardware::CPU.arm?
+      # Homebrew on M1 appears to install here instead of /usr/local/opt
+      system "make", "OSSLPATH=/opt/homebrew/opt/openssl@1.0"
+    else
+      system "make"
+    end
     bin.install "chntpw"
   end
 
