@@ -29,24 +29,26 @@ class ShairportSync < Formula
   depends_on "libsoxr"
   depends_on "openssl@1.1"
   depends_on "popt"
+  depends_on "pulseaudio"
   depends_on "sidneys/homebrew/libalac"
-  depends_on "sidneys/homebrew/pulseaudio"
+  depends_on "jack"
 
   def install
     system "autoreconf", "-fvi"
     args = %W[
-      --with-ao
-      --with-apple-alac
       --with-libdaemon
-      --with-metadata
+      --with-ssl=openssl
+      --with-ao
+      --with-stdout
       --with-pa
       --with-pipe
       --with-soxr
-      --with-ssl=openssl
-      --with-stdout
+      --with-metadata
       --with-piddir=#{var}/run
       --sysconfdir=#{etc}/shairport-sync
       --prefix=#{prefix}
+      --with-apple-alac
+      --with-jack
     ]
     if OS.mac?
       args << "--with-dns_sd" # Enable bonjour
@@ -65,26 +67,25 @@ class ShairportSync < Formula
     keep_alive true
     log_path var/"log/shairport-sync.log"
     error_log_path var/"log/shairport-sync.log"
-    run_type :immediate
   end
 
   test do
     output = shell_output("#{bin}/shairport-sync -V")
     on_macos do
-      assert_match "libdaemon-OpenSSL-dns_sd-ao-pa-stdout-pipe-soxr-metadata", output
+      assert_match "alac-libdaemon-OpenSSL-dns_sd-jack-ao-pa-stdout-pipe-soxr-metadata-sysconfdir", output
     end
     on_linux do
-      assert_match "OpenSSL-ao-pa-stdout-pipe-soxr-metadata-sysconfdir", output
+      assert_match "alac-libdaemon-OpenSSL-jack-ao-pa-stdout-pipe-soxr-metadata-sysconfdir", output
     end
   end
 
   def caveats
     <<~EOS
-      `shairport-sync`s AirPlay audio synchronisation feature requires the `pulseaudio` sound system
-      application to be active and running during usage.
+      The AirPlay audio sync feature of `shairport-sync` requires the `jack` sound system
+      application to be running during usage. It has been installed as a dependency.
 
-      `pulseaudio` has already been installed as a Homebrew dependency. To run it unobstrusively in
-      the background (recommended), start it as a service: `brew services start pulseaudio`
+      To run `jack` unobstrusively in the background (recommended), start it as a service:
+      `brew services start jack`
     EOS
   end
 end

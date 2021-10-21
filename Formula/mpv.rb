@@ -73,6 +73,7 @@ class Mpv < Formula
     args << "--enable-dvdread" if build.with? "libdvdread"
     args << "--enable-pulse" if build.with? "pulseaudio"
     args << "--enable-lgpl" if build.with? "lgpl"
+    args << "--enable-jack" if build.with? "jack"
 
     system Formula["python@3.9"].opt_bin/"python3", "bootstrap.py"
     system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *args
