@@ -10,7 +10,7 @@ class Chntpw < Formula
   def install
     if Hardware::CPU.arm?
       # Homebrew on M1 appears to install here instead of /usr/local/opt
-      system "make", "OSSLPATH=/opt/homebrew/opt/openssl@1.0"
+      system "make", "OSSLPATH=#{Formula["sidneys/homebrew/openssl@1.0"].opt_prefix}"
     else
       system "make"
     end
