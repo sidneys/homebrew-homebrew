@@ -17,7 +17,7 @@ class YoutubeDl < Formula
 
   head do
     # url "https://github.com/ytdl-org/youtube-dl.git"
-    url "https://bitbucket.org/sidneys/youtube-dl.git", branch: "feature-merges/youtube-dl.git"
+    url "https://bitbucket.org/sidneys/youtube-dl.git", branch: "feature-merges/youtube-dl"
 
     depends_on "pandoc"
   end
