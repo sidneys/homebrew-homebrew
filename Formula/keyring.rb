@@ -40,7 +40,7 @@ class Keyring < Formula
   end
 
   test do
-    on_macos do
+    if OS.mac?
       assert_match "keyring.backends.macOS.Keyring", shell_output("#{bin}/keyring --list-backends")
     end
   end
