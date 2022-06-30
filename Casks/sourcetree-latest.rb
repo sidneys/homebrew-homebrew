@@ -7,7 +7,7 @@ cask 'sourcetree-latest' do
   name 'Atlassian Sourcetree'
   homepage 'https://www.sourcetreeapp.com/'
 
-  depends_on macos: '>= :yosemite'
+  depends_on macos: '>= :el_capitan'
 
   app 'Sourcetree.app'
   binary "#{appdir}/Sourcetree.app/Contents/Resources/stree"
