@@ -4,10 +4,8 @@ class OpensslAT10 < Formula
   url "https://ftp.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz"
   mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz"
   sha256 "ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16"
+  revision 1
   version_scheme 1
-
-  bottle do
-  end
 
   keg_only :provided_by_macos,
     "openssl/libressl is provided by macOS so don't link an incompatible version"
