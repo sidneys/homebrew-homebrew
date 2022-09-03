@@ -12,10 +12,10 @@ class MpvIina < Formula
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.9" => :build
+  depends_on "python@3.10" => :build
   depends_on xcode: :build
 
-  depends_on "sidneys/homebrew/ffmpeg-iina"
+  depends_on "ffmpeg-iina"
   depends_on "jpeg"
   depends_on "libarchive"
   depends_on "libass"
@@ -26,7 +26,8 @@ class MpvIina < Formula
   depends_on "mujs"
   depends_on "uchardet"
   # depends_on "vapoursynth"
-  depends_on "sidneys/homebrew/youtube-dl"
+  depends_on "sidneys/homebrew/yt-dlp"
+  # depends_on "yt-dlp"
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
@@ -59,9 +60,9 @@ class MpvIina < Formula
       --disable-macos-10-14-features
     ]
 
-    system Formula["python@3.9"].opt_bin/"python3", "bootstrap.py"
-    system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *args
-    system Formula["python@3.9"].opt_bin/"python3", "waf", "install"
+    system Formula["python@3.10"].opt_bin/"python3", "bootstrap.py"
+    system Formula["python@3.10"].opt_bin/"python3", "waf", "configure", *args
+    system Formula["python@3.10"].opt_bin/"python3", "waf", "install"
   end
 
   test do
