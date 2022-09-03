@@ -56,8 +56,6 @@ class MpvIina < Formula
       --mandir=#{man}
       --docdir=#{doc}
       --lua=luajit
-      --disable-macos-10-12-2-features
-      --disable-macos-10-14-features
     ]
 
     system Formula["python@3.10"].opt_bin/"python3", "bootstrap.py"
