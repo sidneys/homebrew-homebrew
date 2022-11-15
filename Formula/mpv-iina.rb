@@ -15,7 +15,8 @@ class MpvIina < Formula
   depends_on "python@3.10" => :build
   depends_on xcode: :build
 
-  depends_on "ffmpeg-iina"
+  # depends_on "ffmpeg-iina"
+  depends_on "sidneys/homebrew/ffmpeg-iina"
   depends_on "jpeg"
   depends_on "libarchive"
   depends_on "libass"
@@ -26,8 +27,8 @@ class MpvIina < Formula
   depends_on "mujs"
   depends_on "uchardet"
   # depends_on "vapoursynth"
-  depends_on "sidneys/homebrew/yt-dlp"
   # depends_on "yt-dlp"
+  depends_on "sidneys/homebrew/yt-dlp"
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
