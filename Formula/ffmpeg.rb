@@ -1,11 +1,11 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-5.0.1.tar.xz"
-  version "5.0.1-with-options" # to distinguish from homebrew-core's ffmpeg
-  sha256 "ef2efae259ce80a240de48ec85ecb062cecca26e4352ffb3fda562c21a93007b"
+  url "https://ffmpeg.org/releases/ffmpeg-5.1.2.tar.xz"
+  version "5.1.2-with-options" # to distinguish from homebrew-core's ffmpeg
+  sha256 "619e706d662c8420859832ddc259cd4d4096a48a2ce1eefd052db9e440eef3dc"
   license "GPL-2.0-or-later"
-  revision 2
+  revision 1
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
 
   livecheck do
@@ -18,6 +18,7 @@ class Ffmpeg < Formula
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-game-music-emu", "Enable Game Music Emu (GME) support"
   option "with-jack", "Enable Jack support"
+  option "with-libaribb24", "Enable decoding ARIB/ISDB captions"
   option "with-libmodplug", "Enable module/tracker files as inputs via libmodplug"
   option "with-libopenmpt", "Enable module/tracker files as inputs via libopenmpt"
   option "with-librist", "Enable Reliable Internet Stream Transport (RIST) support"
@@ -31,6 +32,7 @@ class Ffmpeg < Formula
   option "with-openjpeg", "Enable JPEG 2000 image format"
   option "with-openssl", "Enable SSL support"
   option "with-rav1e", "Enable AV1 encoding via librav1e"
+  option "with-svt-av1", "Enable Scalable Video Technology for AV1"
   option "with-rtmpdump", "Enable RTMP dumping support"
   option "with-rubberband", "Enable rubberband library"
   option "with-webp", "Enable using libwebp to encode WEBP images"
@@ -47,7 +49,6 @@ class Ffmpeg < Formula
   option "with-two-lame", "Enable two-lame library"
   option "with-xvid", "Enable Xvid library"
 
-  depends_on "nasm" => :build
   depends_on "pkg-config" => :build
 
   depends_on "aom"
@@ -67,6 +68,7 @@ class Ffmpeg < Formula
   depends_on "x265"
   depends_on "xz"
 
+  depends_on "aribb24" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "game-music-emu" => :optional
   depends_on "jack" => :optional
@@ -92,6 +94,7 @@ class Ffmpeg < Formula
   depends_on "rubberband" => :optional
   depends_on "speex" => :optional
   depends_on "srt" => :optional
+  depends_on "svt-av1" => :optional
   depends_on "tesseract" => :optional
   depends_on "two-lame" => :optional
   depends_on "webp" => :optional
@@ -105,9 +108,16 @@ class Ffmpeg < Formula
   uses_from_macos "zlib"
 
   on_linux do
+    depends_on "alsa-lib"
     depends_on "libxv"
     depends_on "gcc" => :optional
   end
+
+  on_intel do
+    depends_on "nasm" => :build
+  end
+
+  fails_with gcc: "5"
 
   def install
     args = %W[
@@ -143,6 +153,7 @@ class Ffmpeg < Formula
 
     args << "--disable-htmlpages" # The same info is accessible through the man pages.
     args << "--enable-chromaprint" if build.with? "chromaprint"
+    args << "--enable-libaribb24" if build.with? "libaribb24"
     args << "--enable-libbluray" if build.with? "libbluray"
     args << "--enable-libbs2b" if build.with? "libbs2b"
     args << "--enable-libcaca" if build.with? "libcaca"
@@ -154,6 +165,7 @@ class Ffmpeg < Formula
     args << "--enable-libopenjpeg" if build.with? "openjpeg"
     args << "--enable-libopenmpt" if build.with? "libopenmpt"
     args << "--enable-librav1e" if build.with? "rav1e"
+    args << "--enable-libsvtav1" if build.with? "svt-av1"
     args << "--enable-librist" if build.with? "librist"
     args << "--enable-librsvg" if build.with? "librsvg"
     args << "--enable-librtmp" if build.with? "rtmpdump"
@@ -191,7 +203,7 @@ class Ffmpeg < Formula
       args << "--enable-indev=jack"
     end
 
-    if build.with? "zvbi"
+    if build.with? "libzvbi"
       ENV.prepend_path "PKG_CONFIG_PATH", Formula["zvbi"].opt_lib/"pkgconfig"
       args << "--enable-libzvbi"
     end

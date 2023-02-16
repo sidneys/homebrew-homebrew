@@ -12,7 +12,7 @@ class YoutubeDl < Formula
     depends_on "pandoc" => :build
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   def install
     system "make", "all" if build.head?
