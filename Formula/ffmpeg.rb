@@ -42,7 +42,7 @@ class Ffmpeg < Formula
   option "with-libvmaf", "Enable libvmaf scoring library"
   option "with-libxml2", "Enable libxml2 library"
   option "with-libzvbi", "Enable decoding of DVB teletext pages and DVB teletext subtitles"
-  # FFmpeg Options: Missing in homebrew-ffmpeg
+  # Options: Missing in homebrew-ffmpeg/ffmpeg
   option "with-libbs2b", "Enable libbs2b library"
   option "with-libcaca", "Enable libcaca library"
   option "with-libgsm", "Enable libgsm library"
@@ -101,7 +101,7 @@ class Ffmpeg < Formula
   depends_on "xvid" => :optional
   depends_on "zeromq" => :optional
   depends_on "zimg" => :optional
-  # FFmpeg Dependencies: missing in homebrew-ffmpeg
+  # Dependencies: missing in homebrew-ffmpeg/ffmpeg
   depends_on "chromaprint" => :optional
 
   uses_from_macos "bzip2"
