@@ -1,21 +1,20 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/v0.35.0.tar.gz"
-  version "0.35.0-with-options" # to distinguish from homebrew-core's mpv
-  sha256 "dc411c899a64548250c142bf1fa1aa7528f1b4398a24c86b816093999049ec00"
+  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
+  version "0.36.0-with-options" # to distinguish from homebrew-core's mpv
+  sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
   license :cannot_represent
   head "https://github.com/mpv-player/mpv.git", branch: "master"
 
   bottle do
-    sha256 arm64_ventura:  "68bf624f6b6225aff7a18e7ebf133f6a2f0d81227a1a9122e327c8df980f1186"
-    sha256 arm64_monterey: "796101aafdfcab4e4e583b106913f2a6eaa9ec457b59231d3474f44564930d77"
-    sha256 arm64_big_sur:  "d3c50d2df9634d918459aac2b48203f203efdc1e2b7ec385db54186c7923074f"
-    sha256 ventura:        "84bd369996a53ea59179b0388074b89acdacf8b67ecc9858d4d67e9bb8677872"
-    sha256 monterey:       "4bf17644be73ef2e0b5d9029a73ccbab14e46f8af6f331ae5ef5329b33be4ab5"
-    sha256 big_sur:        "a7ede2a10b6bc0b59d980f5d731a221fdd0dc450fd909e594e8c877031e72a7f"
-    sha256 catalina:       "9b4b79cfceb6ed515080e7094fcb3361dab288ba4541f7d9f0ea9176d34a6445"
-    sha256 x86_64_linux:   "9123423529705479772f97524aff7c8a6536733ca47d3c823c7c0b7cbdb1db94"
+    sha256 arm64_ventura:  "d40f0a6adbc878015072abfa6fab245fa1ab84b4194037f80f98749ae7253130"
+    sha256 arm64_monterey: "f507a0a0dd4b4a82815ed258756f1114909f34b391691df5e6ac9217fcab6c98"
+    sha256 arm64_big_sur:  "76bf1d5ef0a80d12548a5019ebe99357efc6148d0d6bb9a6858e403d90e9bc53"
+    sha256 ventura:        "9ac9b56929dd55c88a4e74d3099c257ccd9d31ad2ec5fd338e9d6b5b37b653bc"
+    sha256 monterey:       "7b5e2d9c085c257b56129787763e15a51b3faa1cfd3574a2366c3e3d2f07876b"
+    sha256 big_sur:        "43c0b1a4c038566734f9f6fae295b8151e67c8cd5e2e283f0b07d3ee53dfcd8c"
+    sha256 x86_64_linux:   "6f9af11f617268035b7c867bf5aa392a8b0196193891a1b427a0fd96d732378f"
   end
 
   # Options: Missing in homebrew-core/mpv
@@ -24,40 +23,43 @@ class Mpv < Formula
   option "with-caca", "Build with CACA support"
   option "with-dvdnav", "Build with dvdnav support"
   option "with-rubberband", "Build with librubberband support"
-  option "with-lgpl", "Build with LGPL (version 2.1 or later) license"
+  option "with-sdl2", "Build with SDL2 support"
 
   depends_on "docutils" => :build
+  depends_on "meson" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on xcode: :build
-  #depends_on "ffmpeg"
+
+  # depends_on "ffmpeg"
+  depends_on "sidneys/homebrew/ffmpeg"
   depends_on "jpeg-turbo"
   depends_on "libarchive"
   depends_on "libass"
   depends_on "little-cms2"
   # depends_on "luajit"
+  depends_on "luajit-openresty"
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "vapoursynth"
-  #depends_on "yt-dlp"
-  # Dependencies: Missing in homebrew-core/mpv
-  depends_on "sidneys/homebrew/ffmpeg"
-  depends_on "luajit-openresty"
+  # depends_on "yt-dlp"
   depends_on "sidneys/homebrew/yt-dlp"
-  depends_on "jack"
-  depends_on "pulseaudio"
 
+  # Dependencies: Missing in homebrew-core/mpv
+  depends_on "jack"
+  depends_on "sidneys/homebrew/pulseaudio"
+
+  # Dependencies: Optional
   depends_on "libbluray" => :optional
   depends_on "libcaca" => :optional
   depends_on "libdvdnav" => :optional
   depends_on "libdvdread" => :optional
   depends_on "rubberband" => :optional
+  depends_on "sdl2" => :optional
 
   on_linux do
     depends_on "alsa-lib"
   end
-
-  fails_with gcc: "5" # ffmpeg is compiled with GCC
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
@@ -65,13 +67,8 @@ class Mpv < Formula
     # that's good enough for building the manpage.
     ENV["LC_ALL"] = "C"
 
-    # Avoid unreliable macOS SDK version detection
-    # See https://github.com/mpv-player/mpv/pull/8939
-    if OS.mac?
-      sdk = (MacOS.version == :big_sur) ? MacOS::Xcode.sdk : MacOS.sdk
-      ENV["MACOS_SDK"] = sdk.path
-      ENV["MACOS_SDK_VERSION"] = "#{sdk.version}.0"
-    end
+    # force meson find ninja from homebrew
+    ENV["NINJA"] = Formula["ninja"].opt_bin/"ninja"
 
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
@@ -80,43 +77,70 @@ class Mpv < Formula
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["luajit-openresty"].opt_lib/"pkgconfig"
 
     args = %W[
-      --prefix=#{prefix}
-      --enable-html-build
-      --enable-javascript
-      --enable-libmpv-shared
-      --enable-lua
-      --enable-libarchive
-      --enable-uchardet
-      --confdir=#{etc}/mpv
+      -Dhtml-build=enabled
+      -Djavascript=enabled
+      -Dlibmpv=true
+      -Dlua=luajit
+      -Dlibarchive=enabled
+      -Duchardet=enabled
+      --sysconfdir=#{pkgetc}
       --datadir=#{pkgshare}
       --mandir=#{man}
-      --docdir=#{doc}
-      --zshdir=#{zsh_completion}
-      --lua=luajit
-      --disable-swift
+
+      -Dswift-build=enabled
+      -Djack=enabled
+      -Dpulse=enabled
+
+      -Db_lto=true
+      -Db_lto_mode=thin
+      --default-library=both
     ]
 
-    args << "--enable-libbluray" if build.with? "libbluray"
-    args << "--enable-caca" if build.with? "libcaca"
-    args << "--enable-dvdnav" if build.with? "dvdnav"
-    args << "--enable-rubberband" if build.with? "rubberband"
-    args << "--enable-lgpl" if build.with? "lgpl"
+    # Build Arguments: Optional
+    args << "-Dlibbluray=enabled" if build.with? "libbluray"
+    args << "-Denable-caca=enabled" if build.with? "libcaca"
+    args << "-Denable-dvdnav=enabled" if build.with? "dvdnav"
+    args << "-Drubberband=enabled" if build.with? "rubberband"
+    args << "-Dsdl2=enabled" if build.with? "sdl2"
 
-    python3 = "python3.10"
-    system python3, "bootstrap.py"
-    system python3, "waf", "configure", *args
-    system python3, "waf", "install"
+    # macOS ARM Optimization
+    args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
+    args << "-Dswift-flags=-O -wmo"
 
-    if build.with? "bundle"
-      system "python3", "TOOLS/osxbundle.py", "build/mpv"
-      prefix.install "build/mpv.app"
+    system "meson", "setup", "build", *args, *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
+
+    if OS.mac?
+      # `pkg-config --libs mpv` includes libarchive, but that package is
+      # keg-only so it needs to look for the pkgconfig file in libarchive's opt
+      # path.
+      libarchive = Formula["libarchive"].opt_prefix
+      inreplace lib/"pkgconfig/mpv.pc" do |s|
+        s.gsub!(/^Requires\.private:(.*)\blibarchive\b(.*?)(,.*)?$/,
+                "Requires.private:\\1#{libarchive}/lib/pkgconfig/libarchive.pc\\3")
+      end
     end
 
     bash_completion.install "etc/mpv.bash-completion" => "mpv"
+    zsh_completion.install "etc/_mpv.zsh" => "_mpv"
+
+    # Build, Fix, and Codesign App Bundle
+    # https://github.com/deus0ww/homebrew-tap/blob/master/mpv.rb
+    system "python3.11", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
+    bindir = "build/mpv.app/Contents/MacOS/"
+    rm   bindir + "mpv-bundle"
+    mv   bindir + "mpv", bindir + "mpv-bundle"
+    ln_s "mpv-bundle", bindir + "mpv"
+    system "codesign", "--deep", "-fs", "-", "build/mpv.app"
+    prefix.install "build/mpv.app"
   end
 
   test do
     system bin/"mpv", "--ao=null", "--vo=null", test_fixtures("test.wav")
     assert_match "vapoursynth", shell_output(bin/"mpv --vf=help")
+
+    # Make sure `pkg-config` can parse `mpv.pc` after the `inreplace`.
+    system "pkg-config", "mpv"
   end
 end
