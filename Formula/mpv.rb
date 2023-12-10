@@ -1,21 +1,12 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
-  version "0.36.0-with-options" # to distinguish from homebrew-core's mpv
-  sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
+  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
+  version "0.37.0-with-options" # to distinguish from homebrew-core's mpv
+  sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
   license :cannot_represent
+  revision 1
   head "https://github.com/mpv-player/mpv.git", branch: "master"
-
-  bottle do
-    sha256 arm64_ventura:  "d40f0a6adbc878015072abfa6fab245fa1ab84b4194037f80f98749ae7253130"
-    sha256 arm64_monterey: "f507a0a0dd4b4a82815ed258756f1114909f34b391691df5e6ac9217fcab6c98"
-    sha256 arm64_big_sur:  "76bf1d5ef0a80d12548a5019ebe99357efc6148d0d6bb9a6858e403d90e9bc53"
-    sha256 ventura:        "9ac9b56929dd55c88a4e74d3099c257ccd9d31ad2ec5fd338e9d6b5b37b653bc"
-    sha256 monterey:       "7b5e2d9c085c257b56129787763e15a51b3faa1cfd3574a2366c3e3d2f07876b"
-    sha256 big_sur:        "43c0b1a4c038566734f9f6fae295b8151e67c8cd5e2e283f0b07d3ee53dfcd8c"
-    sha256 x86_64_linux:   "6f9af11f617268035b7c867bf5aa392a8b0196193891a1b427a0fd96d732378f"
-  end
 
   # Options: Missing in homebrew-core/mpv
   option "with-bundle", "Enable compilation of the .app bundle."
@@ -28,14 +19,14 @@ class Mpv < Formula
   depends_on "docutils" => :build
   depends_on "meson" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
+  depends_on "python@3.12" => :build
   depends_on xcode: :build
-
   # depends_on "ffmpeg"
   depends_on "sidneys/homebrew/ffmpeg"
   depends_on "jpeg-turbo"
   depends_on "libarchive"
   depends_on "libass"
+  depends_on "libplacebo"
   depends_on "little-cms2"
   # depends_on "luajit"
   depends_on "luajit-openresty"
