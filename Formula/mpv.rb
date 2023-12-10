@@ -118,7 +118,7 @@ class Mpv < Formula
 
     # Build, Fix, and Codesign App Bundle
     # https://github.com/deus0ww/homebrew-tap/blob/master/mpv.rb
-    system "python3.11", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
+    system "python3.12", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
     bindir = "build/mpv.app/Contents/MacOS/"
     rm   bindir + "mpv-bundle"
     mv   bindir + "mpv", bindir + "mpv-bundle"
